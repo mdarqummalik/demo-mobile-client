@@ -46,7 +46,7 @@ const DrawerMenu = () => {
 
 const Main = () => {
   return(
-    //start my fucking project
+// main function
     <View style={{flex:1}}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Login">
