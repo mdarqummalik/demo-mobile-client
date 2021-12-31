@@ -1,11 +1,66 @@
-import React from 'react';
-import {Text, View, StyleSheet, Image, TextInput} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, Image, TextInput, ToastAndroid} from 'react-native';
 import {Button} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import axios from 'axios';
 
-const Signup = ({navigation}) => {
-  const onPressCreate = () => {
-    navigation.navigate('');
+const Signup = () => {
+
+
+  const [getName, setName] = useState('');
+  const [getEmail, setEmail] = useState('');
+  const [getPassword, setPassword] = useState(null);
+
+
+  let UserName, UserEmail, UserPassword;
+
+  const OnPressRegister = () => {
+    UserName = getName;
+    UserEmail = getEmail;
+    UserPassword = getPassword;
+
+    if (UserName && UserEmail && UserPassword !== '') {
+      function validateEmail(email) {
+        return email.match(
+          /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        );
+      }
+
+      if (validateEmail(UserEmail)) {
+        // Send a POST request
+        const params = new URLSearchParams();
+        params.append('name', UserName);
+        params.append('email', UserEmail);
+        params.append('password', UserPassword);
+
+        const config = {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        };
+
+        axios
+          .post(
+            'http://restapi.adequateshop.com/api/authaccount/registration',
+            params,
+            config,
+          )
+          .then(function (response) {
+            ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+           
+          })
+          .catch(function (error) {
+            ToastAndroid.show(
+               error,
+              ToastAndroid.SHORT,
+            );
+          });
+      } else {
+        ToastAndroid.show('Please enter valid email', ToastAndroid.SHORT);
+      }
+    } else {
+      ToastAndroid.show('All feilds is required ', ToastAndroid.SHORT);
+    }
   };
 
   return (
@@ -38,12 +93,18 @@ const Signup = ({navigation}) => {
             <TextInput
               style={styles.form}
               placeholder="  Enter Your Name here"
+              onChangeText={setName}
+        value={getName}
+
             />
           </View>
           <View>
             <TextInput
               style={styles.form}
               placeholder="   Enter Your Email here"
+              onChangeText={setEmail}
+        value={getEmail}
+
             />
           </View>
           <View>
@@ -51,12 +112,15 @@ const Signup = ({navigation}) => {
               style={styles.form}
               label="password"
               placeholder="   Enter Your password here"
+              onChangeText={setPassword}
+        value={getPassword}
+
             />
           </View>
           <View style={{alignItems: 'center'}}>
             <Button
               mode="contained"
-              onPress={onPressCreate}
+              onPress={OnPressRegister}
               style={styles.button}>
               <Text style={styles.btnText}>Create New Account</Text>
             </Button>

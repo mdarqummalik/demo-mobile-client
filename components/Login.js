@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
   Text,
   View,
@@ -6,14 +6,80 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ToastAndroid
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import axios from 'axios';
 
 const Login = ({navigation}) => {
-  const onPressHandler = () => {
-    navigation.navigate('HomeScreen');
-  };
+
+      const [getEmail, setEmail] = useState('');
+      const [getPassword, setPassword] = useState(null);
+  
+  
+    let  UserEmail, UserPassword;
+  
+    const OnPressLogin = () => {
+     
+      UserEmail = getEmail;
+      UserPassword = getPassword;
+  
+      if ( UserEmail && UserPassword !== '') {
+        function validateEmail(email) {
+          return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+          );
+        }
+  
+        if (validateEmail(UserEmail)) {
+          // Send a POST request
+          const params = new URLSearchParams();
+          params.append('email', UserEmail);
+          params.append('password', UserPassword);
+  
+          const config = {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+          };
+  
+          axios
+            .post(
+              'http://restapi.adequateshop.com/api/authaccount/login',
+              params,
+              config,
+            )
+            .then(function (response) {
+if(response.data !== null &&  response.data !== 0){
+  ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+  navigation.navigate("HomeScreen")
+ 
+}else{
+  ToastAndroid.show(response.data.message, ToastAndroid.SHORT);
+  
+}
+
+              
+            })
+            .catch(function (error) {
+              ToastAndroid.show(
+                 error,
+                ToastAndroid.SHORT,
+              );
+            });
+        } else {
+          ToastAndroid.show('Please enter valid email', ToastAndroid.SHORT);
+        }
+      } else {
+        ToastAndroid.show('All feilds is required ', ToastAndroid.SHORT);
+      }
+    };
+
+
+
+
+
   const onPressForgot = () => {
     navigation.navigate('ForgotScreen')
   };
@@ -51,11 +117,17 @@ const Login = ({navigation}) => {
              Client Login
             </Text>
           </View>
+          <View>         
+             <View>
+            
+          </View>
           <View>
             <TextInput
-              style={styles.uname}
-              label="username"
-              placeholder="  Enter username here"
+              style={styles.pword}
+              label="password"
+              placeholder="   Enter email here"
+              onChangeText={setEmail}
+              value={getEmail}
             />
           </View>
           <View>
@@ -63,6 +135,8 @@ const Login = ({navigation}) => {
               style={styles.pword}
               label="password"
               placeholder="   Enter password here"
+              onChangeText={setPassword}
+              value={getPassword}
             />
           </View>
           <View style={{alignItems: 'flex-end', marginRight: 12, padding: 10}}>
@@ -73,10 +147,11 @@ const Login = ({navigation}) => {
           <View style={{alignItems: 'center'}}>
             <Button
               mode="contained"
-              onPress={onPressHandler}
+              onPress={OnPressLogin}
               style={styles.button}>
               <Text style={styles.btnText}>Login</Text>
             </Button>
+          </View>
           </View>
           <View style={{alignItems: 'center', marginTop: 10}}>
             <TouchableOpacity>

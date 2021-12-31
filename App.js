@@ -20,10 +20,7 @@ const Drawer = createDrawerNavigator();
 const DrawerMenu = () => {
   return (
       <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen 
-        name="CreateTicket" 
-        component={CreateTicket} />
-        <Drawer.Screen 
+         <Drawer.Screen 
         name="Home" 
         component={Home} />
        <Drawer.Screen 
@@ -32,6 +29,9 @@ const DrawerMenu = () => {
         <Drawer.Screen 
         name="ScreenB" 
         component={Screen2} />
+        <Drawer.Screen 
+        name="CreateTicket" 
+        component={CreateTicket} />
         <Drawer.Screen 
         name="Logout" 
         component={Login}

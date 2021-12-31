@@ -1,48 +1,54 @@
 import React from 'react';
-import {View, Text, StyleSheet,TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet,TouchableOpacity, ScrollView} from 'react-native';
 import {TextInput,Button} from 'react-native-paper';
 
 const CreateTicket = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.ticketForm}>
-        <Text style={{fontSize:25, padding:10, backgroundColor:'#0068AD', color:"white", width:185, borderTopRightRadius:50, }}>Create Ticket</Text>
+      <ScrollView style={styles.ticketForm}>
+        <Text style={{fontSize:25, padding:10, backgroundColor:'#0068AD', color:"white", width:185, borderTopRightRadius:50, borderBottomRightRadius:50 }}>Create Ticket</Text>
         <View style={styles.inputView}>
         <TextInput
         style={styles.inputs}
           mode="outlined"
           label="Requester"
           placeholder="Type requester name"
+          activeOutlineColor='#0068AD'
         />
         <TextInput
         style={styles.inputs}
           mode="outlined"
           label="Subject"
           placeholder="Type Subject Here"
+          activeOutlineColor='#0068AD'
         />
         <TextInput
         style={styles.inputs}
           mode="outlined"
           label="Location"
           placeholder="Type Location name"
+          activeOutlineColor='#0068AD'
         />
         <TextInput
         style={styles.inputs}
           mode="outlined"
           label="Requester"
           placeholder="Type requester name"
+          activeOutlineColor='#0068AD'
         />
         <TextInput
         style={styles.inputs}
           mode="outlined"
           label="Department"
           placeholder="Type Department here"
+          activeOutlineColor='#0068AD'
         />
          <TextInput
         style={styles.inputDescription}
           mode="outlined"
           label="Description"
           placeholder="Type Description here"
+          activeOutlineColor='#0068AD'
         />
         </View>
         <View style={styles.buttonView}>
@@ -50,7 +56,7 @@ const CreateTicket = () => {
             <Text style={{fontSize: 22, color: '#fafafa'}}>Create Ticket</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -69,6 +75,7 @@ const styles = StyleSheet.create({
     },
     inputs:{
         margin:5,
+        
     },
     inputDescription:{
         height:130,
@@ -76,7 +83,7 @@ const styles = StyleSheet.create({
     },
     buttonView: {
       alignItems: 'center',
-      marginTop: 10,
+      margin: 10,
     },
     ticketButton: {
       width: 378,
