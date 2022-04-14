@@ -123,7 +123,7 @@ const Home = () => {
   );
 };
 
-
+/* CSS start */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
