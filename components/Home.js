@@ -83,7 +83,7 @@ const Item = ({ item, onPress, backgroundColor, textColor ,  }) => (
         <Image style={styles.icon} source={{uri: item.icon}} />
          <View style={{flex:1, flexDirection:'column'}}>
              <Text style={[styles.titles, textColor]}>{item.title}</Text>
-             <Text style={styles.age, textColor}>Age : {item.age}</Text>
+           {/*   <Text style={styles.age, textColor}>Age : {item.age}</Text> */}
             <Text style={styles.prof}>Profession : {item.prof}</Text>
          </View>
       </TouchableOpacity>
@@ -123,7 +123,7 @@ const Home = () => {
   );
 };
 
-
+/* CSS start */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
