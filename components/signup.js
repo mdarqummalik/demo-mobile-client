@@ -38,7 +38,7 @@ const Signup = () => {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
         };
-
+/* Post Api called */
         axios
           .post(
             'http://restapi.adequateshop.com/api/authaccount/registration',
