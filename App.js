@@ -14,6 +14,7 @@ import CreateTicket from './components/createTicket';
 
 
 /* we are testing git merge */
+/* we are testing git merge */
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
